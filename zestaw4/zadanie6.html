@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function rotateString(str, n) {
+				let alf = [
+					"a",
+					"b",
+					"c",
+					"d",
+					"e",
+					"f",
+					"g",
+					"h",
+					"i",
+					"j",
+					"k",
+					"l",
+					"m",
+					"n",
+					"o",
+					"p",
+					"q",
+					"r",
+					"s",
+					"t",
+					"u",
+					"v",
+					"w",
+					"x",
+					"y",
+					"z",
+				];
+				let strArray = str.split("");
+                n = n % alf.length;
+				let letterIdx;
+				let newArray = strArray.map((l) => {
+					if (l == " ") {
+						return l;
+					}
+					letterIdx = alf.findIndex((litera) => litera == l);
+					letterIdx += n;
+					if (letterIdx > alf.length - 1) {
+						letterIdx = letterIdx - alf.length;
+					} else if(letterIdx<0){
+                        letterIdx = alf.length + letterIdx
+                    }
+					return alf[letterIdx];
+				});
+				return newArray.join("");
+			}
+		</script>
+	</body>
+</html>
