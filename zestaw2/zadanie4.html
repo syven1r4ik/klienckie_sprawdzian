@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function sentenceStats(txt) {
+				let wp = 0;
+				let liczbaSlow = 0;
+                let sentences = 0;
+				let zdanie = true;
+				let fiveWords = 0;
+				let slowa = txt.split(" ").filter(w=>w.trim()!=="");
+				slowa.forEach((w) => {
+					liczbaSlow++;
+					if (liczbaSlow > 5 && zdanie) {
+						fiveWords++;
+						zdanie = false;
+					}
+					if (w[w.length - 1] == ".") {
+						liczbaSlow = 0;
+						zdanie = true;
+                        sentences++
+					} else if (w[w.length - 1] == "!" || w[w.length - 1] == "?") {
+						liczbaSlow = 0;
+						zdanie = true;
+                        wp++
+                        sentences++
+					}
+				});
+                return `Zdań: ${sentences}, zakończonych ! lub ?: ${wp}, długich (więcej niż 5 słów): ${fiveWords}`
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+        </style>
+	</head>
+	<body>
+		<div
+			id="main"
+			style="
+				width: 500px;
+				height: 500px;
+				border: 1px solid black;
+				position: relative;
+				background: rgb(200, 200, 200);
+			"
+		></div>
+		<script>
+			let main = document.getElementById("main");
+			for (let i = 0; i < 10; i++) {
+                let radius = Math.floor(Math.random()*21+10)
+                let left = Math.floor(Math.random()*(501-radius))
+                let top = Math.floor(Math.random()*(501-radius))
+                let circle = document.createElement("div")
+                circle.style.cssText = `background: white; width: ${radius}px; height: ${radius}px; border-radius: 50%; border: 1px solid black; position: absolute; left: ${left}px; top: ${top}px;`
+                circle.onclick = function(){
+                    let currentTop = parseInt(circle.style.top.replace("px", "")) 
+                    let idInterval = setInterval(()=>{
+                        if(currentTop<500-parseInt(circle.style.height)){
+                            currentTop+=1
+                            circle.style.top = `${currentTop}px`
+                        } else{
+                            clearInterval(idInterval)
+                        }
+                    },10)
+                    
+                }
+                main.append(circle)
+            }
+		</script>
+	</body>
+</html>

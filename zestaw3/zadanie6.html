@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div style="display: flex; align-items: center; justify-content: center">
+			<button id="left"><</button>
+			<img id="img0" />
+			<img id="img1" />
+			<img id="img2" />
+			<img id="img3" />
+			<img id="img4" />
+			<button id="right">></button>
+		</div>
+		<script>
+			let shift = 0;
+			let dane = [1, 2, 3, 4, 5];
+			function render() {
+				for (let i = 0; i < 5; i++) {
+					document.getElementById(`img${i}`).src =
+						`../zestaw2/cyferki/${dane[i]}.png`;
+				}
+			}
+			render();
+			document.getElementById("left").onclick = () => {
+                shift--;
+				let first = dane.shift();
+				dane.push(first);
+				render();
+				if (shift == -5) {
+					alert("obrocono calosc w lewo");
+                    shift = 0
+				}
+			};
+			document.getElementById("right").onclick = () => {
+				shift++
+                let last = dane.pop();
+				dane.unshift(last);
+				render();
+				if (shift == 5) {
+					alert("obrocono calosc w prawo");
+                    shift = 0
+				}
+			};
+		</script>
+	</body>
+</html>

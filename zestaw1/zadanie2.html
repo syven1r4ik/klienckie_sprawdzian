@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div
+			id="main"
+			style="
+				width: 200px;
+				height: 200px;
+				background: rgb(255, 44, 44);
+				margin: 100px auto;
+			"
+		></div>
+		<br /><br />
+		<button id="start">start</button>
+		<button id="stop">stop</button>
+		angle: <input type="number" id="angle" /> nonstop spin:
+		<input type="checkbox" id="nonstop" />
+		<script>
+			let onceInterval;
+			let nonstopInterval;
+			let div = document.getElementById("main");
+			document.getElementById("start").onclick = () => {
+                clearInterval(nonstopInterval);
+				clearInterval(onceInterval);
+				if (document.getElementById("nonstop").checked) {
+					let angleStart = parseInt(document.getElementById("angle").value);
+					let angle = div.style.rotate
+						? parseInt(div.style.rotate.replace("deg", ""))
+						: 0;
+					nonstopInterval = setInterval(() => {
+						angle += angleStart;
+						div.style.rotate = `${angle}deg`;
+					}, 1);
+				} else {
+					let angleStart = parseInt(document.getElementById("angle").value);
+					let angle = div.style.rotate
+						? parseInt(div.style.rotate.replace("deg", ""))
+						: 0;
+					let targetAngle = angle + 360;
+					onceInterval = setInterval(() => {
+						angle += angleStart;
+						if (angle < targetAngle) {
+							div.style.rotate = `${angle}deg`;
+						} else {
+							div.style.rotate = `${targetAngle}deg`;
+							clearInterval(onceInterval);
+						}
+					}, 1);
+				}
+			};
+			document.getElementById("stop").onclick = () => {
+				clearInterval(nonstopInterval);
+				clearInterval(onceInterval);
+			};
+		</script>
+	</body>
+</html>

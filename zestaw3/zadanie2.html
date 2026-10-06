@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="start">Start</button><br><br>
+    <div style="width: 300px; height: 50px; background: rgb(200, 200, 200); border: 1px solid black;"><div id="prog" style="background: green; height: 50px; width: 0%;"></div></div>
+    <script>
+        let intervalId = null
+        document.getElementById("start").onclick = ()=>{
+            if(intervalId!==null){
+                clearInterval(intervalId)
+            }
+            progress = 0
+            document.getElementById("prog").style.width = "0%"
+            intervalId = setInterval(()=>{
+                if(progress>=100){
+                    document.getElementById("prog").style.width = "100%"
+                    alert("zakonczono")
+                    clearInterval(intervalId)
+                }
+                progress+=0.2
+                document.getElementById("prog").style.width = `${progress}%`
+            },10)
+        }
+    </script>
+</body>
+</html>

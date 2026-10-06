@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap");
+
+			body {
+				background-color: #0b0c10;
+				color: #66fcf1;
+				font-family: "Orbitron", sans-serif;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				min-height: 100vh;
+				margin: 0;
+				user-select: none;
+			}
+
+			#wynik,
+			#reaction {
+				font-size: 24px;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				margin: 10px 0;
+				text-shadow:
+					0 0 10px rgba(102, 252, 241, 0.6),
+					0 0 20px rgba(102, 252, 241, 0.4);
+			}
+
+			#reaction {
+				color: #ff005c;
+				text-shadow:
+					0 0 10px rgba(255, 0, 92, 0.6),
+					0 0 20px rgba(255, 0, 92, 0.4);
+				margin-bottom: 20px;
+			}
+
+			/* Главный квадрат (игровое поле) - теперь привязан к id="main" */
+			#main {
+				width: 500px;
+				height: 500px;
+				position: relative;
+				background:
+					linear-gradient(rgba(11, 12, 16, 0.85), rgba(11, 12, 16, 0.85)),
+					repeating-linear-gradient(
+						0deg,
+						transparent,
+						transparent 49px,
+						#1f2833 49px,
+						#1f2833 50px
+					),
+					repeating-linear-gradient(
+						90deg,
+						transparent,
+						transparent 49px,
+						#1f2833 49px,
+						#1f2833 50px
+					);
+				border: 2px solid #45a29e;
+				border-radius: 15px;
+				box-shadow:
+					0 0 20px rgba(69, 162, 158, 0.4),
+					inset 0 0 40px rgba(0, 0, 0, 0.9);
+				overflow: hidden;
+				cursor: crosshair;
+			}
+
+			/* Сама мишень */
+			#target {
+				position: absolute;
+				border-radius: 50%;
+				border: 2px solid #ffffff !important;
+				box-shadow:
+					0 0 15px rgba(255, 255, 255, 0.8),
+					0 0 30px rgba(255, 255, 255, 0.4);
+				cursor: crosshair;
+				/* Плавная физика появления/исчезновения */
+				transition:
+					transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+					opacity 0.15s ease-out;
+				z-index: 10;
+			}
+
+			/* Эффект прятанья круга */
+			.hidden {
+				opacity: 0;
+				transform: scale(0) rotate(90deg) !important;
+				pointer-events: none;
+			}
+
+		</style>
+	</head>
+	<body>
+		<h1 id="wynik">Wynik: 0</h1>
+		<div
+			id="main"
+			style="
+				width: 500px;
+				height: 500px;
+				border: 1px solid black;
+				position: relative;
+			"
+		>
+			<div
+				id="target"
+				style="
+					width: 50px;
+					height: 50px;
+					border-radius: 50%;
+					position: absolute;
+				"
+			></div>
+		</div>
+		<h1 id="reaction">Reaction time: 0</h1>
+		<script>
+			let circle = document.getElementById("target");
+			let randLeft = Math.floor(Math.random() * 451);
+			let randTop = Math.floor(Math.random() * 451);
+			let r = Math.floor(Math.random() * 256);
+			let g = Math.floor(Math.random() * 256);
+			let b = Math.floor(Math.random() * 256);
+			let intervalId = null;
+			let score = 0;
+			let timingStart = performance.now();
+			let timingClick;
+			circle.style.left = `${randLeft}px`;
+			circle.style.top = `${randTop}px`;
+			circle.style.background = `rgb(${r},${g},${b})`;
+			circle.onclick = () => {
+				if (intervalId !== null) {
+					clearInterval(intervalId);
+				}
+				timingClick = performance.now();
+				document.getElementById("reaction").innerHTML =
+					`Reaction time: ${Math.round(timingClick - timingStart)}ms`;
+				circle.classList.add("hidden");
+				score++;
+				document.getElementById("wynik").innerHTML = `Wynik: ${score}`;
+				startInterval();
+			};
+			function startInterval() {
+				intervalId = setInterval(() => {
+					timingStart = performance.now();
+					circle.classList.remove("hidden");
+					let randLeft = Math.floor(Math.random() * 451);
+					let randTop = Math.floor(Math.random() * 451);
+					let r = Math.floor(Math.random() * 256);
+					let g = Math.floor(Math.random() * 256);
+					let b = Math.floor(Math.random() * 256);
+					circle.style.left = `${randLeft}px`;
+					circle.style.top = `${randTop}px`;
+					circle.style.background = `rgb(${r},${g},${b})`;
+				}, 1000);
+			}
+			startInterval();
+		</script>
+	</body>
+</html>

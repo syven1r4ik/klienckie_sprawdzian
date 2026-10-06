@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function pent(n) {
+				let pentaArray = [];
+				for (let i = 0; i < n; i++) {
+					if (i == 0) {
+						pentaArray.push(0);
+					} else if (i == 1 || i == 2) {
+						pentaArray.push(1);
+					} else if (i == 3) {
+						pentaArray.push(2);
+					} else if (i == 4) {
+						pentaArray.push(4);
+					} else {
+						pentaArray.push(
+							pentaArray[i-5] +
+								pentaArray[i-4] +
+								pentaArray[i-3] +
+								pentaArray[i-2] +
+								pentaArray[i-1],
+						);
+					}
+				}
+				return pentaArray;
+			}
+		</script>
+	</body>
+</html>

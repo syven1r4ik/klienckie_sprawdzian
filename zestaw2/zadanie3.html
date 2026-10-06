@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.img {
+				width: 50px;
+				height: 50px;
+				margin: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<img class="img" id="0"/>
+		<img class="img" id="1"/>
+		<img class="img" id="2"/>
+		<script>
+			let digits = document.querySelectorAll(".img");
+            let answ = [];
+			digits.forEach((digit) => {
+				let randDigit = Math.floor(Math.random() * 3 + 1);
+				digit.src = `cyferki/${randDigit}.png`;
+				digit.dataset.digit = randDigit;
+                answ.push(randDigit)
+				digit.onclick = function () {
+					if (digit.dataset.digit == 3) {
+						digit.dataset.digit = 1;
+					} else{
+                        digit.dataset.digit++
+                    }
+                    digit.src = `cyferki/${digit.dataset.digit}.png`;
+                    answ[parseInt(digit.id)]=parseInt(digit.dataset.digit)
+                    if(answ.join("")=="313"){
+                        alert("Poprawny kod")
+                    }
+				};
+			});
+		</script>
+	</body>
+</html>

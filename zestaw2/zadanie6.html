@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		Podaj liczbe N: <input type="number" id="n" /><button id="gen">
+			Generuj
+		</button>
+		<div
+			id="sq0"
+			style="
+				width: 500px;
+				height: 500px;
+				border: 1px solid black;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+                background: white;
+			"
+		></div>
+		<script>
+			let colors = ["red", "limegreen", "royalblue", "orange", "magenta"];
+			document.getElementById("gen").onclick = () => {
+                document.getElementById("sq0").replaceChildren()
+				let n = parseInt(document.getElementById("n").value);
+				for (let i = 0; i < n; i++) {
+					let parent = document.getElementById(`sq${i}`);
+					let w = parseInt(parent.style.width);
+					let randPercentage = Math.floor(Math.random() * 26 + 50) / 100;
+					let square = document.createElement("div");
+					square.style.cssText = `width: ${w * randPercentage}px; height: ${w * randPercentage}px; border: 1px solid black; display: flex; justify-content: center; align-items: center; background: white;`;
+					square.id = `sq${i + 1}`;
+					square.onmouseover = (e) => {
+                        e.stopPropagation();
+						let randColorId = Math.floor(Math.random() * 5);
+						square.style.background = colors[randColorId];
+					};
+					square.onmouseout = (e) => {
+                        e.stopPropagation();
+						square.style.background = "white";
+					};
+					parent.append(square);
+				}
+			};
+		</script>
+	</body>
+</html>

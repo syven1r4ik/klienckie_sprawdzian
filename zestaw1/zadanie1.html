@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background: gray;
+            display: inline-block;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <script>
+        let divs = document.querySelectorAll(".box")
+        divs.forEach((div)=>{
+            div.onclick = ()=>{
+                if(!div.classList.contains("toggled")){
+                    let r = Math.floor(Math.random()*256)
+                    let g = Math.floor(Math.random()*256)
+                    let b = Math.floor(Math.random()*256)
+                    div.style.background = `rgb(${r},${g},${b})`
+                    div.classList.add("toggled")
+                }
+            }
+            div.ondblclick = ()=>{
+                divs.forEach((div)=>{
+                    div.style.background = "gray"
+                    div.classList.remove("toggled")
+                })
+            }
+        })
+    </script>
+</body>
+</html>

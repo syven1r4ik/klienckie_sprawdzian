@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function compare(a,b,c){
+            let min = Math.min(a,b,c)
+            let max = Math.max(a,b,c)
+            console.log(`Najwieksza: ${max}, najmniejsza: ${min}`)
+            if(a==b || b==c || a==c){
+                return "Są liczby równe"
+            } else{
+                return (a+b+c)/3
+            }
+        }
+    </script>
+</body>
+</html>

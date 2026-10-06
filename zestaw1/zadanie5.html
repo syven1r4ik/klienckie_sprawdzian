@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<input type="number" id="n" />
+		<button id="gen">Generuj</button>
+		<div
+			id="main"
+			style="
+				width: 500px;
+				height: 500px;
+				border: 1px dotted black;
+				position: relative;
+				margin-top: 20px;
+			"
+		></div>
+		<script>
+			let main = document.getElementById("main");
+			         let takenPlace = []
+			document.getElementById("gen").onclick = () => {
+				main.replaceChildren();
+				let n = parseInt(document.getElementById("n").value);
+				takenPlace = [];
+				for (let i = 0; i < n; i++) {
+					let size = Math.floor(Math.random() * 91 + 10);
+					let left = Math.floor(Math.random() * (501 - size));
+					let top = Math.floor(Math.random() * (501 - size));
+					while (isTaken(left, top, left+size, top+size)) {
+						left = Math.floor(Math.random() * (501 - size));
+						top = Math.floor(Math.random() * (501 - size));
+					}
+					takenPlace.push({
+						left: [left, left + size],
+						top: [top, top + size],
+					});
+					let square = document.createElement("div");
+					square.style.cssText = `width: ${size}px; height: ${size}px; border: 1px solid black; top: ${top}px; left: ${left}px; position: absolute`;
+					square.onclick = function () {
+						this.remove();
+					};
+					main.append(square);
+				}
+			};
+			function isTaken(l, t, r, b) {
+				if (takenPlace.length == 0) {
+					return false;
+				}
+				return takenPlace.some((coords) => {
+				    return (
+						l < coords.left[1] &&
+						r > coords.left[0] &&
+						t < coords.top[1] &&
+						b > coords.top[0]
+					)
+                })
+			}
+		</script>
+	</body>
+</html>

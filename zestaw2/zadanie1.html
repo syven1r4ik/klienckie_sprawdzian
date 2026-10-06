@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function fiboDesc(n) {
+				let fibbArray = [];
+				for (let i = 0; i < n; i++) {
+                    if(i==0){
+                        fibbArray.unshift(0)
+                    } else if(i==1 || i==2){
+                        fibbArray.unshift(1)
+                    } else{
+                        fibbArray.unshift(fibbArray[0]+fibbArray[1])
+                    }
+                }
+                return fibbArray
+			}
+		</script>
+	</body>
+</html>

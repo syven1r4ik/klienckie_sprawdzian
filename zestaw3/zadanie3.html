@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				margin-top: 50px;
+			}
+
+			.container {
+				width: 600px;
+				text-align: center;
+			}
+
+			.input-group {
+				display: flex;
+				justify-content: center;
+				gap: 10px;
+				margin-bottom: 30px;
+			}
+
+			input[type="text"] {
+				width: 300px;
+				padding: 10px;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				font-size: 16px;
+			}
+
+			button {
+				padding: 10px 15px;
+				border: none;
+				border-radius: 5px;
+				color: white;
+				font-size: 14px;
+				cursor: pointer;
+			}
+
+			#add {
+				background-color: #0d6efd;
+			}
+			#add:hover {
+				background-color: #0b5ed7;
+			}
+
+			ul {
+				list-style-type: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			li {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 15px 5px;
+				border-bottom: 1px solid #eee;
+				font-size: 1.2em;
+			}
+
+			li p {
+				margin: 0;
+			}
+			.btn-group {
+				display: flex;
+				gap: 10px;
+			}
+
+			.btn-kup {
+				background-color: #198754;
+			}
+			.btn-usun {
+				background-color: #dc3545;
+			}
+
+			.crossed {
+				text-decoration: line-through;
+				color: #888;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Lista zakupów</h1>
+			<div class="input-group">
+				<input type="text" id="name" placeholder="Wpisz nazwę produktu" />
+				<button id="add">Dodaj</button>
+			</div>
+			<ul id="list"></ul>
+		</div>
+		<script>
+			let list = document.getElementById("list");
+			document.getElementById("add").onclick = () => {
+				let name = document.getElementById("name").value;
+
+				let li = document.createElement("li");
+				list.append(li);
+
+				let nazwa = document.createElement("p");
+				nazwa.innerHTML = name;
+
+				let btnGroup = document.createElement("div");
+				btnGroup.className = "btn-group";
+
+				let kupione = document.createElement("button");
+				kupione.innerHTML = "Kupione";
+                kupione.className = "btn-kup";
+				kupione.onclick = function () {
+					nazwa.classList.toggle("crossed");
+				};
+
+				let usun = document.createElement("button");
+				usun.innerHTML = "Usun";
+                usun.className = "btn-usun";
+				usun.onclick = function () {
+					li.remove();
+				};
+                
+				btnGroup.append(kupione, usun);
+                li.append(nazwa, btnGroup);
+                list.append(li);
+			};
+		</script>
+	</body>
+</html>

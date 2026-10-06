@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.hidden {
+				visibility: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 id="wynik">Wynik: 0</h1>
+		<div
+			id="main"
+			style="
+				width: 500px;
+				height: 500px;
+				border: 1px solid black;
+				position: relative;
+			"
+		>
+			<div
+				id="target"
+				style="
+					width: 50px;
+					height: 50px;
+					border-radius: 50%;
+					position: absolute;
+				"
+			></div>
+		</div>
+        <h1 id="reaction">Reaction time: 0</h1>
+		<script>
+			let circle = document.getElementById("target");
+			let randLeft = Math.floor(Math.random() * 451);
+			let randTop = Math.floor(Math.random() * 451);
+			let r = Math.floor(Math.random() * 256);
+			let g = Math.floor(Math.random() * 256);
+			let b = Math.floor(Math.random() * 256);
+			let intervalId = null;
+            let score = 0;
+            let timingStart = performance.now(  );
+            let timingClick;
+			circle.style.left = `${randLeft}px`;
+			circle.style.top = `${randTop}px`;
+			circle.style.background = `rgb(${r},${g},${b})`;
+			circle.onclick = () => {
+				if (intervalId !== null) {
+					clearInterval(intervalId);
+				}
+                timingClick = performance.now()
+                document.getElementById("reaction").innerHTML = `Reaction time: ${Math.round(timingClick-timingStart)}ms`
+				circle.classList.add("hidden");
+                score++
+                document.getElementById("wynik").innerHTML = `Wynik: ${score}`
+                startInterval()
+			};
+			function startInterval() {
+				intervalId = setInterval(() => {
+                    timingStart = performance.now()
+                    circle.classList.remove("hidden");
+					let randLeft = Math.floor(Math.random() * 451);
+					let randTop = Math.floor(Math.random() * 451);
+					let r = Math.floor(Math.random() * 256);
+					let g = Math.floor(Math.random() * 256);
+					let b = Math.floor(Math.random() * 256);
+					circle.style.left = `${randLeft}px`;
+					circle.style.top = `${randTop}px`;
+					circle.style.background = `rgb(${r},${g},${b})`;
+				}, 1000);
+			}
+            startInterval()
+		</script>
+	</body>
+</html>
