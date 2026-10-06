@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<h1 id="wynik">Wynik: 0</h1>
+		<div id="buttons"></div>
+		<script>
+			let wynik = 0;
+			function isPrime(x) {
+				if (x < 2) {
+					return false;
+				}
+				for (let i = 2; i <= Math.sqrt(x); i++) {
+					if (x % i == 0) {
+						return false;
+					}
+				}
+				return true;
+			}
+
+			let numbers = [];
+
+			for (let i = 0; i < 5; i++) {
+				let randNumb = Math.floor(Math.random() * 100 + 1);
+				while (!isPrime(randNumb)) {
+					randNumb = Math.floor(Math.random() * 100 + 1);
+				}
+				numbers.push(randNumb);
+			}
+
+			for (let i = 0; i < 15; i++) {
+				let randNumb = Math.floor(Math.random() * 100 + 1);
+				while (randNumb % 2 == 0 || isPrime(randNumb)) {
+					randNumb = Math.floor(Math.random() * 100 + 1);
+				}
+				numbers.push(randNumb);
+			}
+
+			numbers.sort(() => Math.random() - 0.5);
+
+			numbers.forEach((n) => {
+				let button = document.createElement("button");
+				button.innerHTML = n;
+				button.onclick = () => {
+					if (isPrime(n)) {
+						button.style.background = "lime";
+						button.disabled = true;
+						wynik++;
+						document.getElementById("wynik").innerHTML = `Wynik: ${wynik}`;
+					} else {
+						button.style.background = "pink";
+						button.disabled = true;
+						wynik--;
+						document.getElementById("wynik").innerHTML = `Wynik: ${wynik}`;
+					}
+				};
+                document.getElementById("buttons").append(button)
+			});
+		</script>
+	</body>
+</html>

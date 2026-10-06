@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			.cell {
+				width: 20%;
+				height: 20%;
+				border: 1px solid black;
+				font-size: 2em;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Losowa sciezka po siatce 5x5</h1>
+		<button id="start">Start</button>
+		<div
+			id="cont"
+			style="
+				display: flex;
+				width: 500px;
+				height: 500px;
+				flex-wrap: wrap;
+				border: 1px solid black;
+			"
+		></div>
+		<script>
+			let container = document.getElementById("cont");
+			function render() {
+				container.replaceChildren();
+				for (let i = 1; i <= 5; i++) {
+					for (let j = 1; j <= 5; j++) {
+						let cell = document.createElement("div");
+						cell.classList.add("cell");
+						cell.id = `${i}_${j}`;
+						if (i == 1 && j == 1) {
+							cell.innerHTML = "<b style='font-size: 2em'>1</b>";
+						}
+						container.append(cell);
+					}
+				}
+			}
+			render();
+			let intervalId = null;
+			document.getElementById("start").onclick = () => {
+				if (intervalId !== null) {
+					clearInterval(intervalId);
+				}
+				render();
+				let steps = 1;
+				let currentI = 1;
+				let currentJ = 1;
+				intervalId = setInterval(() => {
+					if (steps < 20) {
+						document.getElementById(`${currentI}_${currentJ}`).innerHTML =
+							steps;
+						steps++;
+						let dx = Math.floor(Math.random() * 3 - 1);
+						let dy = Math.floor(Math.random() * 3 - 1);
+						while (
+							currentI + dx == 0 ||
+							currentI + dx == 6 ||
+							currentJ + dy == 0 ||
+							currentJ + dy == 6 ||
+							(dx !== 0 && dy !== 0) ||
+							(dx === 0 && dy === 0)
+						) {
+							dx = Math.floor(Math.random() * 3 - 1);
+							dy = Math.floor(Math.random() * 3 - 1);
+						}
+						currentI += dx;
+						currentJ += dy;
+						document.getElementById(`${currentI}_${currentJ}`).innerHTML =
+							`<b style='font-size: 2em'>${steps}</b>`;
+					} else {
+						clearInterval(intervalId);
+					}
+				}, 500);
+			};
+		</script>
+	</body>
+</html>

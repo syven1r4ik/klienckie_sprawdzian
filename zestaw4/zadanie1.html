@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div
+			id="kula"
+			style="
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 200px;
+				height: 200px;
+				border-radius: 50%;
+				background: blue;
+				color: white;
+                font-size: 2em;
+			"
+		>
+			KULA
+		</div>
+		<script>
+			let kula = document.getElementById("kula");
+			let maxSize = 600;
+			let minSize = 200;
+			let currentSize = minSize;
+            let intervalId = null;
+			kula.onmousedown = () => {
+				intervalId = setInterval(() => {
+					if (currentSize < maxSize) {
+                        kula.style.width = `${currentSize}px`
+                        kula.style.height = `${currentSize}px`
+						currentSize++;
+					} else if (currentSize == maxSize) {
+						kula.innerHTML = "MAX POWER";
+						clearInterval(intervalId);
+					}
+				}, 10);
+			};
+			kula.onmouseup = () => {
+                clearInterval(intervalId)
+				intervalId = setInterval(() => {
+					kula.innerHTML = "KULA";
+					if (currentSize > minSize) {
+                        kula.style.width = `${currentSize}px`
+                        kula.style.height = `${currentSize}px`
+						currentSize--;
+					} else if (currentSize == minSize) {
+						clearInterval(intervalId);
+					}
+				}, 10);
+			};
+		</script>
+	</body>
+</html>
