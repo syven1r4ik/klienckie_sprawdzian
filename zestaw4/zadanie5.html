@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        ul{
+            list-style-type: none;
+        }
+        .task{
+            width: 95%;
+            border: 1px solid black;
+            display: flex;
+            justify-content: space-between;
+            margin: 15px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 50%; border: 1px solid black; padding: 20px;">
+        <div style="display: flex; justify-content: center;">
+            <input type="text" id="nazwa">
+            <button id="add">Dodaj zadanie</button>
+            <button id="delete">Usun wszystkie</button>
+        </div>
+        <ul id="tasks"></ul>
+    </div>
+    <script>
+        document.getElementById("add").onclick = ()=>{
+            let nazwa = document.getElementById("nazwa").value
+            let task = document.createElement("div")
+            task.classList.add("task")
+            document.getElementById("tasks").prepend(task)
+            let name = document.createElement("p")
+            name.innerHTML = nazwa
+            task.append(name)
+            let usun = document.createElement("button")
+            usun.innerHTML = "Usun"
+            usun.onclick = ()=>{
+                task.remove()
+            }
+            task.append(usun)
+        }
+        document.getElementById("delete").onclick = ()=>{
+            document.getElementById("tasks").replaceChildren()
+        }
+    </script>
+</body>
+</html>
