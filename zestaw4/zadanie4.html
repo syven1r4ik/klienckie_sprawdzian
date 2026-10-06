@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			img {
+				width: 50px;
+				height: 50px;
+				position: absolute;
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Klikaj cyfry od 1 do 5</h1>
+		<div
+			id="main"
+			style="
+				height: 500px;
+				width: 500px;
+				border: 1px solid black;
+				position: relative;
+			"
+		></div>
+		<script>
+			function startGame() {
+                document.getElementById("main").replaceChildren()
+				let currentDigit = 1;
+				for (let i = 1; i <= 5; i++) {
+					let cyferka = document.createElement("img");
+					cyferka.src = `../zestaw2/cyferki/${i}.png`;
+					let randLeft = Math.floor(Math.random() * 451);
+					let randTop = Math.floor(Math.random() * 451);
+					cyferka.style.left = `${randLeft}px`;
+					cyferka.style.top = `${randTop}px`;
+					cyferka.onclick = () => {
+						if (i == currentDigit) {
+							cyferka.remove();
+							currentDigit++;
+						} else {
+							alert("ty dalbayob");
+                            startGame()
+						}
+						if (currentDigit == 6) {
+							alert("ukonczono");
+                            startGame()
+						}
+					};
+					document.getElementById("main").append(cyferka);
+				}
+			}
+            startGame()
+		</script>
+	</body>
+</html>
